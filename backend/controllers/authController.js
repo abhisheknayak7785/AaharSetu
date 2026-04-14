@@ -36,32 +36,40 @@ const handleErrors = (err) =>{
     return errors;
 }
 const maxAge = 3*60*60*24;
-const createToken = (id) => {
-    return jwt.sign({ id }, 'dnynu secret',{
+const createToken = (id, role) => {
+    return jwt.sign({ id, role }, 'dnynu secret',{
         expiresIn : maxAge
     });
 }
 
 
 module.exports.register_get = (req ,res) => {
-    res.render('register');
+    res.send("Route route working");
 }
 module.exports.login_get = (req ,res) => {
-    res.render('login');
+    res.send("Login route working");
 }
 
 module.exports.register_post = async (req ,res) => {
-    const {firstname,lastname,mobileno,email,username,dob,gender,password} = req.body;
+    const {firstname,lastname,mobileno,email,username,dob,gender,password,role, aadhaarId, rationCardType, assignedShop, familyMembersCount} = req.body;
 
     try{
         const emailTaken = await User.findOne({ email });
         if (emailTaken) return res.status(400).json({ err: "This Email is already in use!" });
 
-        const user = await User.create({firstname,lastname,mobileno,email,username,dob,gender,password});
+        const newUser = {firstname,lastname,mobileno,email,username,dob,gender,password,role};
+        if (role === 'beneficiary') {
+            newUser.aadhaarId = aadhaarId;
+            newUser.rationCardType = rationCardType;
+            if (assignedShop) newUser.assignedShop = assignedShop;
+            if (familyMembersCount) newUser.familyMembersCount = familyMembersCount;
+        }
 
-        const token = createToken(user._id);
+        const user = await User.create(newUser);
+
+        const token = createToken(user._id, user.role);
         res.cookie('jwt', token,{httpOnly : true, maxAge : maxAge*1000 });
-        res.status(201).json({ user : user._id});
+        res.status(201).json({ user : user._id, role: user.role });
     }catch(err){
         const errors = handleErrors(err);
         res.status(400).json({ errors });
@@ -73,9 +81,9 @@ module.exports.login_post = async (req ,res) => {
 
     try{
         const user = await User.login(email, password);
-        const token = createToken(user._id);
+        const token = createToken(user._id, user.role);
         res.cookie('jwt', token, { httpOnly : true, maxAge : maxAge*1000});
-        res.status(200).json({user:user._id});
+        res.status(200).json({user:user._id, role: user.role});
     }catch(err){
         const errors = handleErrors(err);
         res.status(400).json({ errors});
@@ -83,8 +91,8 @@ module.exports.login_post = async (req ,res) => {
 }
 
 module.exports.shopkeeper_get = (req ,res) => {
-    const {username} = req.params.username;
-    User.findOne(username)
+    const username = req.params.username;
+    User.findOne({username})
     .then(user => res.json(user))
     .catch(err => res.status(400).json("Error : " + err));
 }

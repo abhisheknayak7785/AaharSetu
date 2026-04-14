@@ -46,7 +46,34 @@ const userSchema = new mongoose.Schema({
         required : true,
         minlength : 6
     },
-});
+    role : {
+        type : String,
+        enum : ['shopkeeper', 'admin', 'beneficiary'],
+        default : 'beneficiary'
+    },
+    aadhaarId: {
+        type: String,
+        sparse: true, // Allow null since admin/shopkeeper might not need it
+        unique: true
+    },
+    rationCardType: {
+        type: String,
+        enum: ['APL', 'BPL', 'Antyodaya', ''],
+        default: ''
+    },
+    assignedShop: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'shop'
+    },
+    familyMembersCount: {
+        type: Number,
+        default: 1
+    },
+    shopId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'shop' // Assigned to shopkeeper representing their owned shop
+    }
+}, { timestamps: true });
 
 //fire a function after a new user saved in db
 userSchema.pre('save',async function(next){

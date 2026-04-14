@@ -9,41 +9,56 @@ const About = () => {
 
                 <div className="content-block">
                     <h2>
-                        <span className="material-icons-round" style={{color: 'var(--accent-primary)'}}>history_edu</span>
+                        <span className="material-icons-round" style={{ color: 'var(--accent-primary)' }}>history_edu</span>
                         History & Background
                     </h2>
                     <p>
-                        In April, 1966 Statutory Rationing was introduced in Greater Mumbai and the Industrial 
-                        complex of Thana which included the Thana Town, Kalyan, Belapur, Ulhasnagar and Ambernath. 
-                        All these areas are operating the Rationing Scheme under provisions of the Maharashtra 
-                        food grain (second) Ration Order of 1966.
+                        In Uttar Pradesh, the Public Distribution System (PDS) operates under the framework of the National Food Security Act (NFSA), 2013, along with state-specific orders and guidelines issued by the government. The rationing system covers both urban and rural areas across the state to ensure food security for eligible beneficiaries.
                     </p>
                     <br />
                     <p>
-                        The Rationing Organization is headed by the Controller of Rationing. The team comprises 
-                        of 2 Deputy Controllers who assist The Controller in supervising Indent, Shops, 
-                        Establishments, Administration, Accounts, General, Enforcement, Kerosene etc. There are 
-                        other five Deputy Controller of Rationing that are incharge of each region, 04 in Mumbai 
-                        and 01 in Thane.
+                        The rationing system in Uttar Pradesh is managed by the Department of Food and Civil Supplies Uttar Pradesh. The overall administration is headed by senior officials such as the Commissioner/Director of Food and Civil Supplies, supported by Additional Commissioners, Joint Commissioners, and District Supply Officers (DSOs).
                     </p>
                     <br />
                     <p>
-                        General control is managed by Food and Civil Supplies department & they also issue 
-                        directives in policy & other related matters. Mumbai & Thane area is serviced by 46 
-                        Rationing offices. In each Rationing office the day to day functioning is supervised by 
-                        1 to 2 Assistant Rationing Officers & is supervised by a Rationing Officer. Each 
-                        Rationing Office works as Nodal Agency for issue / cancellation / changes in Ration Cards.
+                        At the district level, the system is supervised by the District Supply Officer, who ensures smooth functioning of ration distribution, monitoring of fair price shops, and implementation of government policies. Each district is further divided into blocks and urban zones, where Supply Inspectors and other officials oversee operations.
+                    </p>
+                    <br />
+                    <p>
+                        Fair Price Shops (FPS), commonly known as ration shops, are established across villages, towns, and cities to distribute essential commodities like rice, wheat, sugar, and kerosene to beneficiaries. These shops operate under strict guidelines and are regularly monitored for transparency and efficiency.
+                    </p>
+                    <br />
+                    <p>
+                        Each ration card holder is registered in the system, and ration cards are issued, updated, or cancelled through designated offices and increasingly via online portals such as the eDistrict Uttar Pradesh and state PDS portals. Digitalization, including Aadhaar linking and e-POS machines at ration shops, has improved accountability and reduced leakages.
+                    </p>
+                    <br />
+                    <p>
+                        Overall policy decisions, control, and directives are issued by the state government through the Food and Civil Supplies Department, ensuring uniform implementation of food security schemes across Uttar Pradesh.
                     </p>
                 </div>
 
-                <div className="highlight-box fade-in-up" style={{animationDelay: '0.2s'}}>
-                    <h2>
-                        <span className="material-icons-round">verified</span>
+                <div className="highlight-box fade-in-up" style={{ animationDelay: '0.2s' }}>
+                    <h2
+                        style={{
+                            color: 'var(--text-primary)',
+                            fontSize: '1.3rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            margin: 0
+                        }}
+                    >
+                        <span
+                            className="material-icons-round"
+                            style={{ fontSize: '20px', color: '#8B5CF6' }}
+                        >
+                            track_changes
+                        </span>
                         Aim of the System
                     </h2>
-                    <p style={{color: 'var(--text-secondary)', lineHeight: 1.8}}>
-                        Our focus is to reduce the corruption in the ration distribution system. We all want a 
-                        transparent system so no one can cheat with the ration system. This digital platform 
+                    <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8 }}>
+                        Our focus is to reduce the corruption in the ration distribution system. We all want a
+                        transparent system so no one can cheat with the ration system. This digital platform
                         ensures accountability at every level of distribution.
                     </p>
                 </div>

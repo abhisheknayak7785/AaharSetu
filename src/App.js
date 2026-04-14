@@ -17,6 +17,8 @@ import Navbar from './components/navbar';
 
 
 
+import BeneficiaryDashboard from './components/beneficiary/beneficiaryDashboard';
+
 function App() {
   return (
     <div className="App">
@@ -32,6 +34,7 @@ function App() {
             <Route path="/register" component={Register}></Route>
             <Route path="/shopkeeper" component={Shopkeeper}></Route>
             <Route path="/admin"  component={Admin}></Route>
+            <Route path="/beneficiary" component={BeneficiaryDashboard}></Route>
             <Route path="/white" component={White}></Route>
             <Route path="/yellow" component={Yellow}></Route>
             <Route path="/saffron" component={Saffron}></Route>

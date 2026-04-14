@@ -14,7 +14,11 @@ const Register = (props) => {
     const [username, setUsername] = useState('');
     const [dob, setDob] = useState(new Date());
     const [gender, setGender] = useState('');
+    const [role, setRole] = useState('beneficiary');
     const [password, setPassword] = useState('');
+    const [aadhaarId, setAadhaarId] = useState('');
+    const [rationCardType, setRationCardType] = useState('APL');
+    const [familyMembersCount, setFamilyMembersCount] = useState(1);
     const [errorMessage, setErrorMessage] = useState('');
     const [errors, setErrors] = useState({
         username: '', email: '', password: '', mobileno: ''
@@ -43,27 +47,39 @@ const Register = (props) => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        const user = { firstname, lastname, mobileno, email, username, dob: Date.parse(dob), gender, password };
-
+        const user = { firstname, lastname, mobileno, email, username, dob: Date.parse(dob), gender, role, password };
+        if (role === 'beneficiary') {
+            user.aadhaarId = aadhaarId;
+            user.rationCardType = rationCardType;
+            user.familyMembersCount = familyMembersCount;
+        }
         try {
             const res = await fetch('http://localhost:5000/register', {
                 method: 'POST',
-                body: JSON.stringify({ email, password }),
-                headers: { "Content-Type": "application/json" }
+                body: JSON.stringify(user),
+                headers: { "Content-Type": "application/json" },
+                credentials: "include"
             });
+
             const data = await res.json();
+
             if (data.user) {
-                window.location.assign('/shopkeeper');
+                if (data.role === 'admin') {
+                    window.location.assign('/admin');
+                } else if (data.role === 'shopkeeper') {
+                    window.location.assign('/shopkeeper');
+                } else {
+                    window.location.assign('/beneficiary');
+                }
             }
+
             if (data.err) {
                 setErrorMessage(data.err);
             }
+
         } catch (err) {
             console.log(err);
         }
-
-        axios.post('http://localhost:5000/shopkeeper/ssprofile/', user)
-            .then(res => console.log(res.data));
     };
 
     return (
@@ -79,7 +95,7 @@ const Register = (props) => {
                         <span className="material-icons-round" style={{ color: 'white' }}>person_add</span>
                     </div>
                     <h2>Create Account</h2>
-                    <p>Only shopkeeper & admin can register</p>
+                    <p>Register as a Beneficiary, Shopkeeper or Admin</p>
                 </div>
 
                 {errorMessage && (
@@ -163,6 +179,50 @@ const Register = (props) => {
                             </label>
                         </div>
                     </div>
+
+                    <div className="form-group">
+                        <label>Role</label>
+                        <div className="radio-group">
+                            <label className="radio-label">
+                                <input type="radio" name="role" value="beneficiary"
+                                    checked={role === 'beneficiary'} onChange={(e) => setRole(e.target.value)} />
+                                Beneficiary
+                            </label>
+                            <label className="radio-label">
+                                <input type="radio" name="role" value="shopkeeper"
+                                    checked={role === 'shopkeeper'} onChange={(e) => setRole(e.target.value)} />
+                                Shopkeeper
+                            </label>
+                            <label className="radio-label">
+                                <input type="radio" name="role" value="admin"
+                                    checked={role === 'admin'} onChange={(e) => setRole(e.target.value)} />
+                                Admin
+                            </label>
+                        </div>
+                    </div>
+
+                    {role === 'beneficiary' && (
+                        <div className="form-row">
+                            <div className="form-group">
+                                <label htmlFor="reg-aadhaar">Aadhaar ID</label>
+                                <input type="text" id="reg-aadhaar" className="form-input" placeholder="12-digit Aadhaar"
+                                    required value={aadhaarId} onChange={(e) => setAadhaarId(e.target.value)} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="reg-cardtype">Ration Card Type</label>
+                                <select id="reg-cardtype" className="form-input" style={{ padding: '0.6rem' }} value={rationCardType} onChange={(e) => setRationCardType(e.target.value)}>
+                                    <option value="APL">APL (Above Poverty Line)</option>
+                                    <option value="BPL">BPL (Below Poverty Line)</option>
+                                    <option value="Antyodaya">Antyodaya</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="reg-family">Family Members Count</label>
+                                <input type="number" id="reg-family" className="form-input" min="1"
+                                    required value={familyMembersCount} onChange={(e) => setFamilyMembersCount(e.target.value)} />
+                            </div>
+                        </div>
+                    )}
 
                     <div className="form-group">
                         <label htmlFor="reg-password">Password</label>

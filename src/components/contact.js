@@ -14,7 +14,7 @@ const Contact = () => {
                         </div>
                         <div className="contact-info">
                             <h4>Controller of Rationing</h4>
-                            <p>022-22852814</p>
+                            <p> 1800-1800-150</p>
                         </div>
                     </div>
 
@@ -24,7 +24,7 @@ const Contact = () => {
                         </div>
                         <div className="contact-info">
                             <h4>Official Email</h4>
-                            <p>dycor.ho-mum@gov.in</p>
+                            <p>up.fncs@gmail.com</p>
                         </div>
                     </div>
 
@@ -34,7 +34,7 @@ const Contact = () => {
                         </div>
                         <div className="contact-info">
                             <h4>Mantralaya</h4>
-                            <p>Tel: 022-22024243</p>
+                            <p>Tel: 0522-2288658 (Shri Anil Kumar)</p>
                         </div>
                     </div>
 
@@ -44,7 +44,7 @@ const Contact = () => {
                         </div>
                         <div className="contact-info">
                             <h4>Tollfree Helpline</h4>
-                            <p>1967 or 1800-22-4950</p>
+                            <p>1967 or 1800-180-0150</p>
                         </div>
                     </div>
                 </div>

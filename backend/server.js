@@ -10,12 +10,21 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri , {useNewUrlParser : true, useCreateIndex : true,useUnifiedTopology: true });
+mongoose.connect(uri)
+  .then(() => {
+    console.log("Database connected successfully");
+  })
+  .catch((err) => {
+    console.error("DB Connection Error:", err);
+  });
 
 const connection  = mongoose.connection ;
 connection.once('open', ()=>{
@@ -26,4 +35,12 @@ var listener = app.listen(port, function(){
     console.log('Listening on port ' + port); 
 });
 
-app.use(authRoutes);
+const beneficiaryRoutes = require('./routes/beneficiaryRoutes');
+const shopRoutes = require('./routes/shopRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+
+app.use('/auth', authRoutes); // Ensure auth routes are distinct
+app.use(authRoutes); // Keeping original base mounting if frontend expects it for login/register
+app.use('/api/beneficiary', beneficiaryRoutes);
+app.use('/api/shop', shopRoutes);
+app.use('/api/admin', adminRoutes);

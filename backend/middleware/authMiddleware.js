@@ -1,30 +1,45 @@
-
 const jwt = require('jsonwebtoken');
 
-
- const requireAuth = (req, res, next) => {
-// module.exports = function requireAuth(req,res,next) {
-    
-
+const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt;
 
     if(token){
        jwt.verify(token, 'dnynu secret',(err, decodedToken)=>{
            if(err){
                console.log(err.message);
-               return res.redirect('/');
+               return res.status(401).json({ err: 'unauthorized' });
            }else{
-               console.log(decodedToken);
+               req.user = decodedToken;
                next();
            }
        })
     }
     else{
-         return res.redirect('/');        
+         return res.status(401).json({ err: 'unauthorized' });
     }
 }
-//check current user
 
+const requireRole = (roles) => {
+    return (req, res, next) => {
+        const token = req.cookies.jwt;
+        if(token){
+           jwt.verify(token, 'dnynu secret',(err, decodedToken)=>{
+               if(err){
+                   return res.status(401).json({ err: 'unauthorized' });
+               } else if(roles.includes(decodedToken.role)){
+                   req.user = decodedToken;
+                   next();
+               } else{
+                   return res.status(403).json({ err: 'forbidden' });
+               }
+           })
+        } else {
+             return res.status(401).json({ err: 'unauthorized' });
+        }
+    }
+}
 
+const requireAdmin = requireRole(['admin']);
+const requireShopkeeper = requireRole(['admin', 'shopkeeper']);
 
-module.exports = {requireAuth};
+module.exports = { requireAuth, requireRole, requireAdmin, requireShopkeeper };

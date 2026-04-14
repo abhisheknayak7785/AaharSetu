@@ -13,11 +13,16 @@ const Login = (props) => {
             const res = await fetch('http://localhost:5000/login', {
                 method: 'POST',
                 body: JSON.stringify({ email, password }),
-                headers: { "Content-Type": "application/json" }
+                headers: { "Content-Type": "application/json" },
+                credentials: "include"
             });
             const data = await res.json();
             if (data.user) {
-                window.location.assign('/shopkeeper');
+                if (data.role === 'admin') {
+                    window.location.assign('/admin');
+                } else {
+                    window.location.assign('/shopkeeper');
+                }
             }
             if (data.errors) {
                 setErrorMessage(data.errors);

@@ -5,13 +5,13 @@ const AdminShopkeeperDetails = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/admin/admin-shopkeeper-details/")
+        axios.get("http://localhost:5000/admin/admin-shopkeeper-details/", { withCredentials: true })
             .then(res => setUsers(res.data))
             .catch(err => console.log(err));
     }, []);
 
     const deleteUser = (id) => {
-        axios.delete('http://localhost:5000/admin/admin-shopkeeper-details/' + id)
+        axios.delete('http://localhost:5000/admin/admin-shopkeeper-details/' + id, { withCredentials: true })
             .then(res => console.log(res.data));
         setUsers(users.filter(el => el._id !== id));
     };

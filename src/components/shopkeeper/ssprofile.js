@@ -22,7 +22,7 @@ const Ssprofile = (props) => {
 
     useEffect(() => {
         if (props.match && props.match.params.username) {
-            axios.get("http://localhost:5000/shopkeeper/ssprofile/" + props.match.params.username)
+            axios.get("http://localhost:5000/shopkeeper/ssprofile/" + props.match.params.username, { withCredentials: true })
                 .then(res => {
                     setFirstname(res.data.firstname || '');
                     setLastname(res.data.lastname || '');
@@ -63,7 +63,7 @@ const Ssprofile = (props) => {
         const user = { firstname, lastname, mobileno, email, username, dob: Date.parse(dob), gender, password };
 
         if (props.match && props.match.params.id) {
-            axios.post('http://localhost:5000/shopkeeper/ssprofile/update/' + props.match.params.id, user)
+            axios.post('http://localhost:5000/shopkeeper/ssprofile/update/' + props.match.params.id, user, { withCredentials: true })
                 .then(res => console.log(res.data));
         }
     };
