@@ -12,7 +12,7 @@ const port = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "*",
     credentials: true,
   }),
 );
@@ -47,4 +47,3 @@ app.use(authRoutes); // Keeping original base mounting if frontend expects it fo
 app.use("/api/beneficiary", beneficiaryRoutes);
 app.use("/api/shop", shopRoutes);
 app.use("/api/admin", adminRoutes);
-console.log(process.env.MONGO_URI);
