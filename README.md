@@ -1,73 +1,94 @@
-﻿# Getting Started with Create React App.
+# AaharSetu: Ration Corruption Control System
 
-ration corruption control system
- welcome
+AaharSetu is a comprehensive digital solution designed to streamline the ration distribution system and combat corruption. It provides a transparent platform for beneficiaries, shopkeepers, and administrators to manage food distribution efficiently.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🚀 Features
 
-## Available Scripts
+- **Role-Based Access Control**: Separate interfaces and permissions for Beneficiaries, Shopkeepers, and Admins.
+- **Digital Ration Cards**: Support for different ration types (White, Saffron, and Yellow cards) based on eligibility.
+- **Secure Transactions**: QR Code integration for verifying and recording ration distributions.
+- **Complaint Management**: A system for beneficiaries to lodge complaints and track their resolution.
+- **Admin Dashboard**: Oversight of all shops, transactions, and user activities.
+- **Shop Management**: Tools for shopkeepers to manage stocks and record sales.
+- **Responsive Design**: Built with React and Bootstrap for a seamless experience across devices.
 
-In the project directory, you can run:
+## 🛠️ Tech Stack
 
-### `npm start`
+- **Frontend**: React.js (v17), Bootstrap 4, Axios, React Router.
+- **Backend**: Node.js, Express.js.
+- **Database**: MongoDB (Mongoose).
+- **Authentication**: JWT (JSON Web Tokens), Bcryptjs.
+- **Deployment**: Docker, Docker Compose.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 📁 Project Structure
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```text
+.
+├── backend/            # Express server, MongoDB models, routes, and controllers
+├── public/             # Static assets
+├── src/                # React source code
+│   ├── components/     # UI components (Admin, Shopkeeper, Beneficiary modules)
+│   ├── App.js          # Main application entry and routing
+│   └── index.js        # React DOM rendering
+├── Dockerfile          # Frontend Docker configuration
+├── docker-compose.yml  # Orchestration for frontend, backend, and database
+└── package.json        # Frontend dependencies and scripts
+```
 
-### `npm test`
+## ⚙️ Installation & Setup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+- Node.js (v18 or later)
+- MongoDB (Local or Atlas)
+- Docker & Docker Compose (optional for containerized setup)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Local Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd AaharSetu-main
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **Backend Configuration**:
+   - Navigate to the `backend` directory: `cd backend`
+   - Install dependencies: `npm install`
+   - Create a `.env` file and add your MongoDB URI:
+     ```env
+     MONGO_URI=your_mongodb_connection_string
+     PORT=5000
+     ```
+   - Start the backend: `npm run dev` (uses nodemon)
 
-### `npm run eject`
+3. **Frontend Configuration**:
+   - Navigate back to the root directory: `cd ..`
+   - Install dependencies: `npm install`
+   - Start the frontend: `npm start`
+   - Access the app at `http://localhost:3000`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Docker Setup
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To run the entire stack using Docker:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Build and start the containers:
+   ```bash
+   docker-compose up --build
+   ```
+2. The frontend will be available at `http://localhost:3000` and the backend at `http://localhost:5000`.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 🔒 Environment Variables
 
-## Learn More
+| Variable | Description |
+|----------|-------------|
+| `MONGO_URI` | MongoDB connection string (Backend) |
+| `PORT` | Port for the backend server (default: 5000) |
+| `REACT_APP_API_URL` | API endpoint for the frontend (default: http://localhost:5000) |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🤝 Contributing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-### Code Splitting
+## 📄 License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License.
